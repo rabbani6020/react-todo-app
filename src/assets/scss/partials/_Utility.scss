@@ -1,0 +1,28 @@
+/*=============================
+// Utility Class
+=============================*/
+.image-link {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 1;
+}
+.img-link {
+  width: 100%;
+  height: 100%;
+}
+
+.after-before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.loading {
+  color: red;
+  font-weight: 700;
+}

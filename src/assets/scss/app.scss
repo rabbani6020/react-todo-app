@@ -1,0 +1,26 @@
+/****************************
+==============================
+   Index
+==============================
+
+1.    Variable
+2.    Mixins
+3.    Custom Animation
+4.    Base
+5.    Utility
+  
+
+******************************/
+
+// partials
+
+@import "./partials/Variable";
+@import "./partials/Mixins";
+@import "./partials/Base";
+@import "./partials/Utility";
+
+// layouts
+@import "./layouts/Header";
+@import "./layouts/Footer";
+@import "./layouts/Table";
+@import "./layouts/Blog";

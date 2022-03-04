@@ -1,0 +1,81 @@
+$font-body: "Roboto", sans-serif;
+
+$color-primary: #0066ff;
+$color-primary-hover: #0066ff;
+$color-secondary: #d63031;
+$color-secondary-hover: #d63031;
+
+$color-white: #fff;
+$color-black: #000;
+$color-heading: #000;
+
+$color-body: #545454;
+$color-border: #e7e7e7;
+
+$color-gray: #f6f6f6;
+
+$border-radius-none: 0;
+$border-radius-sm: 5px;
+$border-radius-md: 10px;
+$border-radius-lg: 15px;
+$border-radius-xl: 50px;
+
+$color-fb: #1559c2;
+$color-tw: #1ea9e9;
+$color-in: #3f729b;
+$color-vm: #2cc0eb;
+$color-pn: #3b5998;
+$color-wh: #43ce13;
+$color-dr: #f65e97;
+$color-dw: #ff6b10;
+$color-yu: #ed1d25;
+
+// brakpoints
+$breakpoints: (
+  "xs": (
+    max-width: 575px,
+  ),
+  "sm": (
+    max-width: 767px,
+  ),
+  "md": (
+    max-width: 991px,
+  ),
+  "lg": (
+    max-width: 1199px,
+  ),
+) !default;
+
+:root {
+  --font-body: "Roboto", sans-serif;
+
+  --color-primary: #0066ff;
+  --color-primary-hover: #0066ff;
+  --color-secondary: #d63031;
+  --color-secondary-hover: #d63031;
+
+  --color-white: #fff;
+  --color-black: #000;
+  --color-heading: #000;
+
+  --color-body: #545454;
+  --color-border: #e7e7e7;
+
+  --color-grey: #f6f6f6;
+
+  --border-radius-none: 0;
+  --border-radius-sm: 5px;
+  --border-radius-md: 10px;
+  --border-radius-lg: 15px;
+  --border-radius-xl: 50px;
+
+  --color-fb: #1559c2;
+  --color-tw: #1ea9e9;
+  --color-in: #3f729b;
+  --color-vm: #2cc0eb;
+  --color-pn: #3b5998;
+  --color-wh: #43ce13;
+  --color-dr: #f65e97;
+  --color-dw: #ff6b10;
+  --color-yu: #ed1d25;
+}

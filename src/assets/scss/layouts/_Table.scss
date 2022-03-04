@@ -1,0 +1,13 @@
+// Table
+.bg-light {
+  background-color: #e7e7e7;
+}
+.bg-dark {
+  background-color: #181818;
+  color: $color-white;
+}
+
+.table-head-primary {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+}
