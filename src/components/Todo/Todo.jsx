@@ -10,11 +10,15 @@ const Todo = () => {
   const [filterdValue, setFilterdValue] = useState("all");
   const [filterdTodos, setFilterdTodos] = useState([]);
 
-  //   useEffect(() => {
-  //     filterTodoHandler();
-  //   }, []);
+  // useEffect stuff
+
+  useEffect(() => {
+    getLocalTodos();
+  }, []);
+
   useEffect(() => {
     filterTodoHandler();
+    saveLocalTodos();
   }, [todos, filterdValue]);
 
   // function stuff
@@ -27,15 +31,20 @@ const Todo = () => {
 
   const addTodoHandler = (e) => {
     e.preventDefault();
-    setTodos([
-      ...todos,
-      {
-        text: inputTodo,
-        completed: false,
-        id: Math.floor(Math.random() * 1000),
-      },
-    ]);
-    setInputTodo("");
+
+    if (!!inputTodo) {
+      setTodos([
+        ...todos,
+        {
+          text: inputTodo,
+          completed: false,
+          id: Math.floor(Math.random() * 1000),
+        },
+      ]);
+      setInputTodo("");
+    } else {
+      return alert("Please create task");
+    }
   };
 
   const deleteTodoHandler = (id) => {
@@ -57,8 +66,6 @@ const Todo = () => {
   };
 
   const filterTodoHandler = () => {
-    //   const allTodos = [...todos];
-
     switch (filterdValue) {
       case "completed": {
         setFilterdTodos(todos.filter((todo) => todo.completed === true));
@@ -74,11 +81,23 @@ const Todo = () => {
     }
   };
 
-  console.log(todos);
+  const saveLocalTodos = () => {
+    localStorage.setItem("todos", JSON.stringify(todos));
+  };
+
+  const getLocalTodos = () => {
+    if (localStorage.getItem("todos") === null) {
+      localStorage.setItem("todos", JSON.stringify([]));
+    } else {
+      const todoLocal = JSON.parse(localStorage.getItem("todos"));
+      setTodos(todoLocal);
+    }
+  };
 
   return (
     <>
       <div className="todo">
+        <h2 className="title">Simple Todo Application</h2>
         <form className="todo-form">
           <div className="form-group text-group">
             <input
@@ -88,10 +107,7 @@ const Todo = () => {
               className="form-control"
               placeholder="your task"
             />
-            <button
-              className="plus-btn btn btn-primary"
-              onClick={addTodoHandler}
-            >
+            <button className="plus-btn" onClick={addTodoHandler}>
               <AiOutlinePlus />
             </button>
           </div>
@@ -99,7 +115,7 @@ const Todo = () => {
             <select
               onChange={inputSelectHandler}
               value={filterdValue}
-              className="form-select"
+              className="form-select form-control"
             >
               <option value="all">All</option>
               <option value="completed">Completed</option>
@@ -111,19 +127,28 @@ const Todo = () => {
           <div className="todo-list">
             {filterdTodos.map((todo) => (
               <div className="todo-item" key={todo.id}>
-                <span className="text">{todo.text}</span>
-                <button
-                  className="btn btn-success"
-                  onClick={() => completeTodoHandler(todo.id)}
-                >
-                  <GiCheckMark />
-                </button>
-                <button
-                  className="btn btn-danger"
-                  onClick={() => deleteTodoHandler(todo.id)}
-                >
-                  <FaTrashAlt />
-                </button>
+                <div className="text-area">
+                  <span
+                    className={`task-text ${todo.completed ? "complete" : ""}`}
+                  >
+                    {todo.text}
+                  </span>
+                </div>
+
+                <div className="btn-wrap">
+                  <button
+                    className="complete-btn"
+                    onClick={() => completeTodoHandler(todo.id)}
+                  >
+                    <GiCheckMark />
+                  </button>
+                  <button
+                    className="delete-btn"
+                    onClick={() => deleteTodoHandler(todo.id)}
+                  >
+                    <FaTrashAlt />
+                  </button>
+                </div>
               </div>
             ))}
           </div>
