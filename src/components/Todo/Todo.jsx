@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { AiOutlinePlus } from "react-icons/ai";
-import { GiCheckMark } from "react-icons/gi";
-import { FaTrashAlt } from "react-icons/fa";
+import Pagination from "./Pagination";
+
+import TaskForm from "./TaskForm";
+import TodoList from "./TodoList";
 
 const Todo = () => {
   // state stuff
   const [inputTodo, setInputTodo] = useState("");
+  const [search, setSearch] = useState("");
   const [todos, setTodos] = useState([]);
   const [filterdValue, setFilterdValue] = useState("all");
   const [filterdTodos, setFilterdTodos] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [todosPerPage, setTodosPerPage] = useState(4);
 
   // useEffect stuff
 
@@ -24,6 +28,9 @@ const Todo = () => {
   // function stuff
   const inputTodoHandler = (e) => {
     setInputTodo(([e.target.name] = e.target.value));
+  };
+  const searchHandler = (e) => {
+    setSearch(([e.target.name] = e.target.value));
   };
   const inputSelectHandler = (e) => {
     setFilterdValue(([e.target.name] = e.target.value));
@@ -94,64 +101,37 @@ const Todo = () => {
     }
   };
 
+  // pagination
+  const indexOfLastTodo = currentPage * todosPerPage;
+  const indexOfFirstTodo = indexOfLastTodo - todosPerPage;
+  const currentTodo = filterdTodos.slice(indexOfFirstTodo, indexOfLastTodo);
+  console.log(currentTodo);
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
   return (
     <>
       <div className="todo">
         <h2 className="title">Simple Todo Application</h2>
-        <form className="todo-form">
-          <div className="form-group text-group">
-            <input
-              value={inputTodo}
-              onChange={inputTodoHandler}
-              type="text"
-              className="form-control"
-              placeholder="your task"
-            />
-            <button className="plus-btn" onClick={addTodoHandler}>
-              <AiOutlinePlus />
-            </button>
-          </div>
-          <div className="form-group select-group">
-            <select
-              onChange={inputSelectHandler}
-              value={filterdValue}
-              className="form-select form-control"
-            >
-              <option value="all">All</option>
-              <option value="completed">Completed</option>
-              <option value="incompleted">Incompleted</option>
-            </select>
-          </div>
-        </form>
-        {filterdTodos.length > 0 && (
-          <div className="todo-list">
-            {filterdTodos.map((todo) => (
-              <div className="todo-item" key={todo.id}>
-                <div className="text-area">
-                  <span
-                    className={`task-text ${todo.completed ? "complete" : ""}`}
-                  >
-                    {todo.text}
-                  </span>
-                </div>
-
-                <div className="btn-wrap">
-                  <button
-                    className="complete-btn"
-                    onClick={() => completeTodoHandler(todo.id)}
-                  >
-                    <GiCheckMark />
-                  </button>
-                  <button
-                    className="delete-btn"
-                    onClick={() => deleteTodoHandler(todo.id)}
-                  >
-                    <FaTrashAlt />
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
+        <TaskForm
+          inputTodo={inputTodo}
+          inputTodoHandler={inputTodoHandler}
+          addTodoHandler={addTodoHandler}
+          filterdValue={filterdValue}
+          inputSelectHandler={inputSelectHandler}
+          search={search}
+          searchHandler={searchHandler}
+        />
+        <TodoList
+          search={search}
+          filterdTodos={currentTodo}
+          completeTodoHandler={completeTodoHandler}
+          deleteTodoHandler={deleteTodoHandler}
+        />
+        {filterdTodos.length > 4 && (
+          <Pagination
+            totalTodos={filterdTodos.length}
+            todosPerPage={todosPerPage}
+            paginate={paginate}
+          />
         )}
       </div>
     </>
