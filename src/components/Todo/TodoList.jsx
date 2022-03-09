@@ -1,11 +1,13 @@
 import React from "react";
 import { GiCheckMark } from "react-icons/gi";
 import { FaTrashAlt } from "react-icons/fa";
+import { BsPencilSquare } from "react-icons/bs";
 const TodoList = ({
   filterdTodos,
   search,
   completeTodoHandler,
   deleteTodoHandler,
+  editTodoHandler,
 }) => {
   return (
     <>
@@ -37,6 +39,12 @@ const TodoList = ({
                     onClick={() => completeTodoHandler(todo.id)}
                   >
                     <GiCheckMark />
+                  </button>
+                  <button
+                    className="edit-btn"
+                    onClick={() => editTodoHandler(todo.id)}
+                  >
+                    <BsPencilSquare />
                   </button>
                   <button
                     className="delete-btn"

@@ -57,6 +57,7 @@
 
 .plus-btn,
 .complete-btn,
+.edit-btn,
 .delete-btn {
   font-size: 1.25rem;
   line-height: 1;
@@ -83,6 +84,12 @@
     background-color: darken(#ffdd59, 20%);
   }
 }
+.edit-btn {
+  background-color: #14e20d;
+  &:hover {
+    background-color: darken(#14e20d, 20%);
+  }
+}
 .delete-btn {
   background-color: red;
   &:hover {
@@ -107,6 +114,7 @@
     border-radius: var(--border-radius-sm);
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
     justify-content: space-between;
     background: #355c7d; /* fallback for old browsers */
     background: -webkit-linear-gradient(

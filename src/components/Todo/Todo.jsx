@@ -12,7 +12,6 @@ const Todo = () => {
   const [filterdValue, setFilterdValue] = useState("all");
   const [filterdTodos, setFilterdTodos] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [todosPerPage, setTodosPerPage] = useState(4);
 
   // useEffect stuff
 
@@ -71,6 +70,9 @@ const Todo = () => {
       })
     );
   };
+  const editTodoHandler = (id) => {
+    console.log("edit handler");
+  };
 
   const filterTodoHandler = () => {
     switch (filterdValue) {
@@ -102,11 +104,19 @@ const Todo = () => {
   };
 
   // pagination
+  const todosPerPage = 8;
   const indexOfLastTodo = currentPage * todosPerPage;
   const indexOfFirstTodo = indexOfLastTodo - todosPerPage;
   const currentTodo = filterdTodos.slice(indexOfFirstTodo, indexOfLastTodo);
-  console.log(currentTodo);
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+  const prevPaginate = () => {
+    setCurrentPage(currentPage - 1);
+  };
+  const nextPaginate = () => {
+    setCurrentPage(currentPage + 1);
+  };
   return (
     <>
       <div className="todo">
@@ -125,12 +135,16 @@ const Todo = () => {
           filterdTodos={currentTodo}
           completeTodoHandler={completeTodoHandler}
           deleteTodoHandler={deleteTodoHandler}
+          editTodoHandler={editTodoHandler}
         />
         {filterdTodos.length > 4 && (
           <Pagination
             totalTodos={filterdTodos.length}
             todosPerPage={todosPerPage}
             paginate={paginate}
+            currentPage={currentPage}
+            prevPaginate={prevPaginate}
+            nextPaginate={nextPaginate}
           />
         )}
       </div>
