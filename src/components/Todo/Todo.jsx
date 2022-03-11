@@ -103,11 +103,13 @@ const Todo = () => {
     }
   };
 
-  // pagination
-  const todosPerPage = 8;
-  const indexOfLastTodo = currentPage * todosPerPage;
-  const indexOfFirstTodo = indexOfLastTodo - todosPerPage;
-  const currentTodo = filterdTodos.slice(indexOfFirstTodo, indexOfLastTodo);
+  // pagination stuff
+  const todosPerPage = 5;
+  const lastIndex = currentPage * todosPerPage;
+  const firstIndex = lastIndex - todosPerPage;
+  const currentTodo = filterdTodos.slice(firstIndex, lastIndex);
+  const totalTodos = filterdTodos.length;
+  const totalPage = Math.ceil(totalTodos / todosPerPage);
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
@@ -139,7 +141,8 @@ const Todo = () => {
         />
         {filterdTodos.length > 4 && (
           <Pagination
-            totalTodos={filterdTodos.length}
+            totalTodos={totalTodos}
+            totalPage={totalPage}
             todosPerPage={todosPerPage}
             paginate={paginate}
             currentPage={currentPage}
